@@ -3,7 +3,7 @@ CC=avr-gcc
 prog.hex: prog.elf
 	avr-objcopy -O ihex -R .eeprom $^ $@
 
-prog.elf: src/main.c src/lcd.c
+prog.elf: src/main.c src/lcd.c src/interface.c
 	${CC} -Os -DF_CPU=16000000UL -mmcu=atmega328p -o $@ $^
 
 upload: prog.hex

@@ -23,11 +23,11 @@ void lcd_init() {
     lcd_db_pin_set(0x2);
     P_EN_UP; _delay_ms( 2 ); P_EN_DOWN; // from here we have 4 bit mode
 
-    lcd_clear();
-
     lcd_cmd_set( 0x0C, 0 ); // display on/off control - turn on display, no cursor
     lcd_cmd_set( 0x06, 0 ); // entry mode - set cursor to increment, no display shift
     lcd_cmd_set( 0x28, 0 ); // function set - set 4 bit mode, two lines
+
+    lcd_clear(); // clear the screen
 }
 
 void lcd_db_pin_set(char db) {
