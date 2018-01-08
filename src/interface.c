@@ -78,18 +78,33 @@ void interface_handle_buttons() {
 
 void interface_handle_button(const char button, const char pressed) {
     static char was_pressed[BUTTONS_COUNT];
-    static unsigned long delay[BUTTONS_COUNT];
+    static unsigned int delay_hold[BUTTONS_COUNT], delay_doublepress[BUTTONS_COUNT];
 
-    if( pressed == BUTTON_PRESSED && delay[button] == BUTTON_HOLD_TIME )
+    if( pressed == BUTTON_PRESSED
+            && delay_hold[button] == BUTTON_HOLD_TIME )
         bank_list[bank_id].buttons[button].hold();
 
-    else if( was_pressed[button] == BUTTON_PRESSED && pressed == BUTTON_RELEASED && delay[button] < BUTTON_HOLD_TIME )
+    if( delay_doublepress[button] < BUTTON_DOUBLEPRESS_TIME
+            && was_pressed[button] == BUTTON_RELEASED
+            && pressed == BUTTON_PRESSED )
+        bank_list[bank_id].buttons[button].double_pressed();
+
+    if( was_pressed[button] == BUTTON_PRESSED
+            && pressed == BUTTON_RELEASED
+            && delay_hold[button] < BUTTON_HOLD_TIME
+            && delay_doublepress[button] >= BUTTON_DOUBLEPRESS_TIME )
+    {
         bank_list[bank_id].buttons[button].pressed();
+        delay_doublepress[button] = 0;
+    }
 
-    if( pressed == BUTTON_RELEASED ) delay[button] = 0;
-    else ++delay[button];
+    if( pressed == BUTTON_RELEASED ) delay_hold[button] = 0;
+    else ++delay_hold[button];
 
-    if(was_pressed[button] != pressed) _delay_ms(BUTTON_CLICK_DELAY_MS);
+    if( delay_doublepress[button] < BUTTON_DOUBLEPRESS_TIME ) ++delay_doublepress[button];
+
+    if( was_pressed[button] != pressed ) _delay_ms(BUTTON_CLICK_DELAY_MS);
+
     was_pressed[button] = pressed;
 }
 
