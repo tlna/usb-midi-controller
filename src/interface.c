@@ -3,47 +3,12 @@
 static struct Bank bank_list[BANK_LIST_COUNT];
 static int bank_id = 0;
 
-/* temporary functions for buttons presses */
-void bank_a_l_press() { interface_print_info("left pressed"); } 
-void bank_a_l_dpress() { interface_print_info("left pressed twice"); } 
-void bank_a_l_hold() { interface_print_info("left hold"); }
-
-void bank_a_m_press() { interface_print_info("middle pressed"); } 
-void bank_a_m_dpress() { interface_print_info("middle pressed twice"); } 
-void bank_a_m_hold() { interface_print_info("middle hold"); }
-
-void bank_a_r_press() { interface_print_info("right pressed"); } 
-void bank_a_r_dpress() { interface_print_info("right pressed twice"); } 
-void bank_a_r_hold() { interface_print_info("right hold"); }
-
-void bank_b_noop() { interface_print_info("noop"); }
-/* end of temporary function */
-
 
 void interface_init_bank() {
-    bank_list[0].name = "Bank A";
-    bank_list[0].info = "foo";
-    bank_list[0].buttons[BUTTON_LEFT].pressed = bank_a_l_press;
-    bank_list[0].buttons[BUTTON_LEFT].double_pressed = bank_a_l_dpress;
-    bank_list[0].buttons[BUTTON_LEFT].hold = bank_a_l_hold;
-    bank_list[0].buttons[BUTTON_MIDDLE].pressed = bank_a_m_press;
-    bank_list[0].buttons[BUTTON_MIDDLE].double_pressed = bank_a_m_dpress;
-    bank_list[0].buttons[BUTTON_MIDDLE].hold = bank_a_m_hold;
-    bank_list[0].buttons[BUTTON_RIGHT].pressed = bank_a_r_press;
-    bank_list[0].buttons[BUTTON_RIGHT].double_pressed = bank_a_r_dpress;
-    bank_list[0].buttons[BUTTON_RIGHT].hold = bank_a_r_hold;
+    bank_test_init(&bank_list[0]);
 
     bank_list[1].name = "Bank B";
     bank_list[1].info = "foo for bank B";
-    bank_list[1].buttons[BUTTON_LEFT].pressed = bank_b_noop;
-    bank_list[1].buttons[BUTTON_LEFT].double_pressed = bank_b_noop;
-    bank_list[1].buttons[BUTTON_LEFT].hold = bank_b_noop;
-    bank_list[1].buttons[BUTTON_MIDDLE].pressed = bank_b_noop;
-    bank_list[1].buttons[BUTTON_MIDDLE].double_pressed = bank_b_noop;
-    bank_list[1].buttons[BUTTON_MIDDLE].hold = bank_b_noop;
-    bank_list[1].buttons[BUTTON_RIGHT].pressed = bank_b_noop;
-    bank_list[1].buttons[BUTTON_RIGHT].double_pressed = bank_b_noop;
-    bank_list[1].buttons[BUTTON_RIGHT].hold = bank_b_noop;
 
     interface_print_bank(bank_list[bank_id].name, bank_list[bank_id].info);
 }

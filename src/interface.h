@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include <util/delay.h>
-#include "lcd.h"
 
 #define BUTTON_LEFT_PIN     PC6
 #define BUTTON_MIDDLE_PIN   PD4
@@ -33,6 +32,10 @@ struct Bank {
     const char *info;
     struct Button buttons[3];
 };
+
+
+#include "lcd.h"
+#include "banks/test.h"
 
 
 void interface_init_bank();
