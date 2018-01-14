@@ -38,6 +38,15 @@ void interface_handle_buttons() {
         interface_handle_button_bank(BUTTON_PRESSED);
     else 
         interface_handle_button_bank(BUTTON_RELEASED);
+
+    // enter into boodloader
+    if( ( PIND & _BV(BUTTON_BANK_PIN) ) >> BUTTON_BANK_PIN == 1
+            && ( PINC & _BV(BUTTON_LEFT_PIN) ) >> BUTTON_LEFT_PIN == 1  ) {
+        lcd_clear();
+        lcd_cursor_home();
+        lcd_print("Flashing...");
+        asm volatile("jmp 0x3800");
+    }
 }
 
 
@@ -45,15 +54,18 @@ void interface_handle_button(const char button, const char pressed) {
     static char was_pressed[BUTTONS_COUNT];
     static unsigned int delay_hold[BUTTONS_COUNT], delay_doublepress[BUTTONS_COUNT];
 
+    // handle hold button action
     if( pressed == BUTTON_PRESSED
             && delay_hold[button] == BUTTON_HOLD_TIME )
         bank_list[bank_id].buttons[button].hold();
 
+    // handle double press button action
     if( delay_doublepress[button] < BUTTON_DOUBLEPRESS_TIME
             && was_pressed[button] == BUTTON_RELEASED
             && pressed == BUTTON_PRESSED )
         bank_list[bank_id].buttons[button].double_pressed();
 
+    // handle single button press action
     if( was_pressed[button] == BUTTON_PRESSED
             && pressed == BUTTON_RELEASED
             && delay_hold[button] < BUTTON_HOLD_TIME
@@ -63,13 +75,17 @@ void interface_handle_button(const char button, const char pressed) {
         delay_doublepress[button] = 0;
     }
 
+    // counter for hold button action
     if( pressed == BUTTON_RELEASED ) delay_hold[button] = 0;
     else ++delay_hold[button];
 
+    // counter for double press button action
     if( delay_doublepress[button] < BUTTON_DOUBLEPRESS_TIME ) ++delay_doublepress[button];
 
+    // delay for button press - to avoid unwanted extra click
     if( was_pressed[button] != pressed ) _delay_ms(BUTTON_CLICK_DELAY_MS);
 
+    // save selected button as previous one
     was_pressed[button] = pressed;
 }
 
