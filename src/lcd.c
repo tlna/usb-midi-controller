@@ -1,6 +1,6 @@
 #include "lcd.h"
 
-void lcd_init() {
+void lcd_init(void) {
     DDRD |= _BV( P_RS  );
     DDRB |= _BV( P_EN  );
     DDRB |= _BV( P_DB4 );
@@ -50,7 +50,7 @@ void lcd_cmd_set(char db, char rs) {
     P_EN_DOWN;
 }
 
-void lcd_cursor_home() {
+void lcd_cursor_home(void) {
     lcd_cmd_set( 0x02, 0 );
     _delay_ms( 2 );
 }
@@ -60,7 +60,7 @@ void lcd_cursor_move(int row, int line) {
     lcd_cmd_set( 0x80 + row + line_ofsets[line] , 0 );
 }
 
-void lcd_clear() {
+void lcd_clear(void) {
     lcd_cmd_set( 0x01, 0 );
     _delay_ms( 2 );
 }

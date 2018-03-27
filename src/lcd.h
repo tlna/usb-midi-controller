@@ -1,7 +1,6 @@
 #ifndef _LCD_H_
 #define _LCD_H_
 
-#define __AVR_ATmega32U4__
 #include <avr/io.h>
 #include <util/delay.h>
 
@@ -31,14 +30,14 @@
 #define P_DB7_DOWN    (PORTE &= ~_BV( P_DB7 ))
 
 
-void lcd_init();
+void lcd_init(void);
 void lcd_db_pin_set(char db);
 void lcd_cmd_set(char db, char rs);
 
-void lcd_cursor_home();
+void lcd_cursor_home(void);
 void lcd_cursor_move(int row, int line);
 
-void lcd_clear();
+void lcd_clear(void);
 void lcd_print(const char *str);
 
 #endif

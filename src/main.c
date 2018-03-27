@@ -1,8 +1,9 @@
-#define __AVR_ATmega32U4__
 #include <avr/io.h>
 
-#include "lcd.h"
-#include "interface.h"
+#include <lcd.h>
+#include <midi.h>
+#include <interface.h>
+#include <descriptors.h>
 
 
 int main (void) {
@@ -11,5 +12,13 @@ int main (void) {
     lcd_init();
     interface_init_bank();
 
-    while(1) interface_handle_buttons();
+    midi_init();
+
+    _delay_ms(3000);
+
+    while(1) {
+        midi_handle_tasks();
+        interface_handle_buttons();
+    }
 }
+

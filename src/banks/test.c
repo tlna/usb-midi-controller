@@ -14,42 +14,42 @@ void bank_test_init(struct Bank *bank_handler) {
     bank_handler->buttons[BUTTON_RIGHT].hold = bank_test_r_hold;
 }
 
-void bank_test_l_press() {
+void bank_test_l_press(void) {
     interface_print_info("left pressed");
 } 
 
-void bank_test_l_dpress() {
+void bank_test_l_dpress(void) {
     interface_print_info("left pressed twice");
 } 
 
-void bank_test_l_hold() {
+void bank_test_l_hold(void) {
     interface_print_info("left hold");
 }
 
-void bank_test_m_press() {
+void bank_test_m_press(void) {
     interface_print_info("middle pressed");
 } 
 
-void bank_test_m_dpress() {
+void bank_test_m_dpress(void) {
     interface_print_info("middle pressed twice");
 } 
 
-void bank_test_m_hold() {
+void bank_test_m_hold(void) {
     interface_print_info("middle hold");
 }
 
-void bank_test_r_press() {
+void bank_test_r_press(void) {
     interface_print_info("right pressed");
 } 
 
-void bank_test_r_dpress() {
+void bank_test_r_dpress(void) {
     interface_print_info("right pressed twice");
 } 
 
-void bank_test_r_hold() {
+void bank_test_r_hold(void) {
     interface_print_info("right hold");
 }
 
-void bank_b_noop() {
+void bank_b_noop(void) {
     interface_print_info("noop");
 }

@@ -1,0 +1,3 @@
+-I/usr/avr/include/
+-Ilufa/
+-Isrc/

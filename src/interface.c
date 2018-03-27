@@ -4,7 +4,7 @@ static struct Bank bank_list[BANK_LIST_COUNT];
 static int bank_id = 0;
 
 
-void interface_init_bank() {
+void interface_init_bank(void) {
     bank_test_init(&bank_list[0]);
 
     bank_list[1].name = "Bank B";
@@ -14,7 +14,7 @@ void interface_init_bank() {
 }
 
 
-void interface_handle_buttons() {
+void interface_handle_buttons(void) {
     // left button
     if( ( PINC & _BV(BUTTON_LEFT_PIN) ) >> BUTTON_LEFT_PIN == 1 )
         interface_handle_button(BUTTON_LEFT, BUTTON_PRESSED);
@@ -45,12 +45,13 @@ void interface_handle_buttons() {
         lcd_clear();
         lcd_cursor_home();
         lcd_print("Flashing...");
-        asm volatile("jmp 0x3800");
+        midi_disable();
+        asm volatile("jmp 0x3800"); // jump to the atmega bootloader
     }
 }
 
 
-void interface_handle_button(const char button, const char pressed) {
+void interface_handle_button(const int button, const char pressed) {
     static char was_pressed[BUTTONS_COUNT];
     static unsigned int delay_hold[BUTTONS_COUNT], delay_doublepress[BUTTONS_COUNT];
 

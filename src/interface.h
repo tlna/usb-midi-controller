@@ -17,13 +17,13 @@
 #define BUTTON_RELEASED 0
 #define BUTTON_HOLD_TIME 32000
 #define BUTTON_DOUBLEPRESS_TIME 32000
-#define BUTTON_CLICK_DELAY_MS 0.5
+#define BUTTON_CLICK_DELAY_MS 5.0
 
 
 struct Button {
-    void (*pressed)();
-    void (*double_pressed)();
-    void (*hold)();
+    void (*pressed)(void);
+    void (*double_pressed)(void);
+    void (*hold)(void);
 };
 
 
@@ -34,14 +34,15 @@ struct Bank {
 };
 
 
-#include "lcd.h"
-#include "banks/test.h"
+#include <lcd.h>
+#include <midi.h>
+#include <banks/test.h>
 
 
-void interface_init_bank();
+void interface_init_bank(void);
 
-void interface_handle_buttons();
-void interface_handle_button(const char button, const char pressed);
+void interface_handle_buttons(void);
+void interface_handle_button(const int button, const char pressed);
 void interface_handle_button_bank(const char pressed);
 
 void interface_print_bank(const char* bank_name, const char* bank_info);
