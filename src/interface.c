@@ -5,10 +5,8 @@ static int bank_id = 0;
 
 
 void interface_init_bank(void) {
-    bank_test_init(&bank_list[0]);
-
-    bank_list[1].name = "Bank B";
-    bank_list[1].info = "foo for bank B";
+    bank_sl3track_init(&bank_list[0]);
+    bank_test_init(&bank_list[1]);
 
     interface_print_bank(bank_list[bank_id].name, bank_list[bank_id].info);
 }

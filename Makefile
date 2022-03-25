@@ -18,7 +18,8 @@ F_CPU        = 16000000
 F_USB        = $(F_CPU)
 OPTIMIZATION = s
 TARGET       = FootMidiCtlSoftware
-SRC          = src/main.c src/descriptors.c src/lcd.c src/midi.c src/interface.c src/banks/test.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS)
+SRC          = src/main.c src/descriptors.c src/lcd.c src/midi.c src/interface.c $(LUFA_SRC_USB) $(LUFA_SRC_USBCLASS) \
+			   src/banks/sooperlooper_3tracks.c src/banks/test.c
 LUFA_PATH	 = lufa/LUFA
 CC_FLAGS     = -Isrc -DUSE_LUFA_CONFIG_HEADER
 LD_FLAGS     =

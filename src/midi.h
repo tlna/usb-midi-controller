@@ -8,6 +8,7 @@
 #include <LUFA/Drivers/USB/Class/Device/MIDIClassDevice.h>
 #include <descriptors.h>
 
+extern USB_ClassInfo_MIDI_Device_t Controller_MIDI_Interface;
 
 void midi_init(void);
 void midi_disable(void);

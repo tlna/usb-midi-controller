@@ -37,7 +37,7 @@ struct Bank {
 #include <lcd.h>
 #include <midi.h>
 #include <banks/test.h>
-
+#include <banks/sooperlooper_3tracks.h>
 
 void interface_init_bank(void);
 
